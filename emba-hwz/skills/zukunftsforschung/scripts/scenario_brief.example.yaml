@@ -1,0 +1,145 @@
+decision_question: "Which futures should our B2B SaaS pricing strategy be robust against to 2032?"
+horizon: "2032"
+method: "2x2"
+
+axes:
+  axis_1:
+    name: "Enterprise AI agent adoption pace"
+    endpoints: ["slow & cautious", "fast & dominant"]
+  axis_2:
+    name: "EU AI / data regulatory regime"
+    endpoints: ["permissive", "restrictive"]
+
+scenarios:
+  - name: "Agent Bazaar"
+    headline: "Procurement is done by AI agents, light-touch regulation."
+    narrative: >
+      By 2032, most B2B software purchases are screened, shortlisted and
+      negotiated by AI procurement agents. Regulation has stayed light-touch in
+      the EU, mostly addressing liability. Vendors compete on machine-readable
+      pricing and proof-of-value, not on relationship.
+    features:
+      market: "Agent-mediated procurement is the default channel."
+      customers: "Buying committees shrink; agents do triage."
+      competition: "Pricing transparency rises sharply; bundling loses power."
+      regulation: "Liability frameworks exist; data flows largely unrestricted."
+      technology: "Mature multi-agent orchestration; standardized vendor APIs."
+    signals:
+      - "Major procurement platforms launch agent SDKs (early signal, 2026-2027)"
+      - "Top-10 enterprises mandate machine-readable RFPs (mid signal, 2028-2029)"
+    implications:
+      - "Pricing must be machine-readable and modular by default."
+      - "Sales motion shifts from relationship to API + proof-of-value."
+      - "Brand equity erodes; differentiation comes from measurable outcomes."
+    psychological_read: >
+      Activates anxiety in legacy enterprise sales teams. Hope frame: this is
+      where our modular pricing investment pays off and our smaller sales
+      footprint becomes a feature, not a bug.
+
+  - name: "Walled Gardens"
+    headline: "Fast AI adoption, restrictive regulation. Sovereign data, regional clouds."
+    narrative: >
+      AI agents are everywhere, but data residency and AI use rules force a
+      regional architecture. Cross-border SaaS becomes legally complex. Vendors
+      build sovereign deployments per region.
+    features:
+      market: "Regional fragmentation; EU, US, APAC require separate stacks."
+      customers: "Buying decisions weight compliance heavily."
+      competition: "Local champions emerge; global SaaS players retreat or fragment."
+      regulation: "Detailed AI Act enforcement; sectoral data rules tighten."
+      technology: "Sovereign cloud deployments; provable data lineage required."
+    signals:
+      - "First enforcement actions under EU AI Act high-risk categories (2026)"
+      - "Major German Mittelstand contracts requiring EU-only data residency (2027)"
+    implications:
+      - "Architecture decisions today must allow per-region deployment."
+      - "Compliance becomes a sales feature; invest in attestations."
+      - "M&A logic shifts toward regional rather than global consolidation."
+    psychological_read: >
+      Activates fear of complexity and cost. Hope frame: we can be the company
+      that turned compliance into a competitive moat instead of a tax.
+
+  - name: "Slow Burn"
+    headline: "Cautious AI adoption, restrictive regulation. Pilots stall."
+    narrative: >
+      Enterprises continue piloting AI but production deployment lags. Regulation
+      adds friction. The promised productivity revolution arrives in slices, not
+      waves.
+    features:
+      market: "Long sales cycles, careful evaluation."
+      customers: "Procurement still human-led; AI agents are advisory only."
+      competition: "Traditional SaaS playbook still works."
+      regulation: "Restrictive; documentation burden high."
+      technology: "Reliable but boring — extensions of existing patterns."
+    signals:
+      - "Gartner downgrades enterprise AI productivity forecasts (2026)"
+      - "Major customer success stories remain narrow vertical use cases (2027)"
+    implications:
+      - "Do not over-rotate the GTM model — current motion still works."
+      - "Invest selectively; preserve cash."
+      - "Use the time to deepen vertical expertise."
+    psychological_read: >
+      Activates relief in incumbents, frustration in builders. Hope frame: this
+      is the future where craftsmanship and trust still win.
+
+  - name: "Quiet Revolution"
+    headline: "Cautious AI adoption pace, permissive regulation."
+    narrative: >
+      Companies move slowly into AI for cultural and trust reasons, but the
+      regulatory ground is open. Long incumbents have time to adapt; new
+      entrants struggle to find pull.
+    features:
+      market: "Slow but steady AI feature adoption."
+      customers: "Trust-driven choices; reputation matters."
+      competition: "Incumbents win the next cycle; pure-AI startups fade."
+      regulation: "Permissive; self-regulation in industry consortia."
+      technology: "Mature, embedded, not flashy."
+    signals:
+      - "Major enterprises announce 5-year AI roadmaps with conservative milestones (2026)"
+      - "Industry consortia publish self-regulation codes (2027)"
+    implications:
+      - "Lean on reputation; over-invest in customer success stories."
+      - "Don't bet the model on agent-first GTM."
+      - "Defensive innovation wins."
+    psychological_read: >
+      Activates comfort in incumbents — beware complacency. Hope frame: a future
+      where deliberate, customer-centric building pays off.
+
+moves:
+  no_regret:
+    - "Make pricing modular and machine-readable by default (pays off in A, helps in B, harmless in C/D)"
+    - "Invest in measurable customer outcome reporting (relevant in every scenario)"
+    - "Build EU data-residency capability now as a low-cost option"
+  option_creating:
+    - "Pilot an agent-native onboarding flow in one customer segment by Q2 2026"
+    - "Establish a small dedicated compliance & attestations function"
+  scenario_specific:
+    - trigger: "If Scenario A signals fire (agent SDKs adopted by top platforms)"
+      move: "Accelerate API-first GTM; rebuild pricing engine on outcome metrics"
+    - trigger: "If Scenario B signals fire (AI Act enforcement actions)"
+      move: "Acquire or partner for regional deployment capability"
+
+watch_list:
+  - "Procurement platforms launching agent SDKs (Scenario A signal)"
+  - "EU AI Act enforcement actions, especially in our sector (Scenario B signal)"
+  - "Productivity revisions by major analysts (Scenario C signal)"
+  - "Industry self-regulation codes published (Scenario D signal)"
+
+integrating_narrative:
+  hard_truths: >
+    Three of these four futures meaningfully reshape how B2B software is bought.
+    Our current sales model assumes relationship-driven procurement and stable
+    cross-border data flows. Both assumptions could break.
+  agency: >
+    We can choose to make our product architecture and pricing legible to a
+    machine procurement agent now, while we still have the lead time to do it
+    deliberately. We can build the compliance posture as a sales feature, not a
+    cost center. These are real moves, not slogans.
+  identity: >
+    We want to be the company that took uncertainty seriously without panicking,
+    and that earned trust from customers because we did our homework on what
+    they would face in 2030.
+  first_move: >
+    By end of next quarter, ship the modular pricing engine v1 to two named
+    accounts and publish the API-readable pricing schema. That is the
+    demonstration that we are not just talking.

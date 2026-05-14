@@ -42,14 +42,29 @@ The SKILL.md `description` field is the primary triggering mechanism — when yo
 
 ## Installation
 
-### As a Cowork plugin
-Install `emba-hwz.plugin` (the zip file) through Cowork's plugin management.
+### Via Claude Code marketplace (GitHub) — recommended
+The repo doubles as a single-plugin Claude Code marketplace, so you can install directly from GitHub:
 
-### As a local Claude Code plugin
-Place the `emba-hwz` folder under your Claude Code plugins directory.
+```
+/plugin marketplace add sansan88/hwz-emba-claude-plugin
+/plugin install emba-hwz@hwz-emba-marketplace
+```
+
+To update later, re-run `/plugin marketplace update hwz-emba-marketplace`.
+
+### Via Claude Code marketplace (local path)
+For local testing without pushing to GitHub, point the marketplace at a local clone:
+
+```
+/plugin marketplace add /path/to/hwz-emba-claude-plugin
+/plugin install emba-hwz@hwz-emba-marketplace
+```
+
+### As a Cowork plugin (zip upload)
+Upload `emba-hwz.plugin` (the zip file at the repo root) in Cowork under *Plugins → Add local plugin*. Cowork unpacks the zip and registers the skills automatically.
 
 ### As local skills (Cowork)
-Place the `emba-hwz/skills/*` folders under Cowork's user skills directory.
+Alternatively, place the contents of `skills/*` directly under Cowork's user skills directory.
 
 ## Usage examples
 

@@ -10,17 +10,18 @@ The plugin operationalizes 16 modules of Sandro's HWZ Executive MBA Advanced Man
 
 ## Repository layout
 
-The repo root *is* the plugin source (flat layout, no nested `emba-hwz/` directory). It also acts as a **single-plugin Claude Code marketplace** so the plugin can be added directly from GitHub.
+The repo root holds the **marketplace manifest** and maintainer docs; the actual plugin source lives in a nested `emba-hwz/` subdirectory. This split is intentional: it lets the repo act as a **single-plugin Claude Code marketplace** while keeping the plugin source in the same shape the Cowork zip expects, so the same directory tree feeds both install paths. The `"./emba-hwz"` relative source in `marketplace.json` is also broadly compatible across Claude Code versions (older versions rejected the root-shorthand `"."`).
 
-- `.claude-plugin/marketplace.json` — marketplace manifest (lists the `emba-hwz` plugin with `source: "."`)
-- `.claude-plugin/plugin.json` — plugin manifest (`name`, `version`, `description`, `keywords`)
-- `skills/<skill-name>/` — one directory per skill, all following the same anatomy:
+- `.claude-plugin/marketplace.json` — marketplace manifest (lists the `emba-hwz` plugin with `source: "./emba-hwz"`)
+- `emba-hwz/.claude-plugin/plugin.json` — plugin manifest (`name`, `version`, `description`, `keywords`)
+- `emba-hwz/skills/<skill-name>/` — one directory per skill, all following the same anatomy:
   - `SKILL.md` — entry point with YAML frontmatter (`name`, `description`) + workflow body
   - `references/*.md` — deep-dive docs Claude loads on demand
   - `templates/*.md` — fill-in canvases for executive use
   - `scripts/*.py` + `scripts/*.example.yaml` — standalone Python renderers (YAML → markdown brief)
-- `README.md` — module → skill mapping and maintenance notes
-- `emba-hwz.plugin` — packaged zip for offline distribution (contains a nested `emba-hwz/` directory with the same manifest inside)
+- `README.md` — module → skill mapping and maintenance notes (lives at the repo root, maintainer-facing only)
+- `CLAUDE.md` — this file (repo root, maintainer-facing only)
+- `emba-hwz.plugin` — packaged zip for offline distribution (the `emba-hwz/` subdirectory zipped as-is)
 
 ## How skill triggering works (critical context)
 
@@ -35,7 +36,7 @@ The `description:` field in each SKILL.md frontmatter is the **only** triggering
 Each skill's `scripts/<name>.py` is a self-contained Python 3 script that reads a YAML spec and renders an executive-ready markdown brief. They have no shared dependencies and no package layout — run directly:
 
 ```
-python skills/<skill>/scripts/<script>.py <input.yaml> [--output <out.md>]
+python emba-hwz/skills/<skill>/scripts/<script>.py <input.yaml> [--output <out.md>]
 ```
 
 Each script has a sibling `<script>.example.yaml` documenting the schema. When modifying a script, update the example YAML and the schema docstring at the top of the script in lockstep.
@@ -51,21 +52,16 @@ Each script has a sibling `<script>.example.yaml` documenting the schema. When m
 
 There are three ways to install the plugin, all consuming the same source:
 
-1. **Marketplace (GitHub):** in Claude Code, run `/plugin marketplace add sansan88/hwz-emba-claude-plugin`, then `/plugin install emba-hwz@hwz-emba-marketplace`. Driven by `.claude-plugin/marketplace.json` + root `.claude-plugin/plugin.json`.
+1. **Marketplace (GitHub):** in Claude Code, run `/plugin marketplace add sansan88/hwz-emba-claude-plugin`, then `/plugin install emba-hwz@hwz-emba-marketplace`. Driven by root `.claude-plugin/marketplace.json` pointing at the nested `emba-hwz/` directory.
 2. **Marketplace (local path):** `/plugin marketplace add /path/to/this/repo` for testing without pushing. Same files as (1).
-3. **Cowork local plugin upload:** upload `emba-hwz.plugin` (the zip) in Cowork under *Plugins → Add local plugin*. Cowork unpacks the zip and registers the skills. The zip contains a nested `emba-hwz/` wrapper with its own `.claude-plugin/plugin.json` — Cowork expects this shape.
+3. **Cowork local plugin upload:** upload `emba-hwz.plugin` (the zip) in Cowork under *Plugins → Add local plugin*. Cowork unpacks the zip and registers the skills. The zip wraps the same `emba-hwz/` directory as in the repo — Cowork expects this shape.
 
 ## Re-packaging the zip
 
-When you change skills, rebuild `emba-hwz.plugin` so it stays in sync. The zip needs the nested `emba-hwz/` wrapper Cowork expects. From the repo root:
+When you change skills, rebuild `emba-hwz.plugin` so it stays in sync. Since the `emba-hwz/` directory in the repo is already in the shape Cowork expects, the rebuild is a one-liner from the repo root:
 
 ```
-rm -rf /tmp/emba-hwz /tmp/emba-hwz.plugin
-mkdir -p /tmp/emba-hwz/.claude-plugin
-cp -r skills README.md /tmp/emba-hwz/
-cp .claude-plugin/plugin.json /tmp/emba-hwz/.claude-plugin/
-(cd /tmp && zip -r emba-hwz.plugin emba-hwz)
-mv /tmp/emba-hwz.plugin .
+rm -f emba-hwz.plugin && zip -r emba-hwz.plugin emba-hwz -x '*.DS_Store'
 ```
 
-The two `plugin.json` copies (root + zip) must stay identical — bump `version` in both when releasing.
+Bump `version` in `emba-hwz/.claude-plugin/plugin.json` before re-packaging — there is now a single source of truth for the plugin manifest, but the zip must be regenerated for the new version to reach Cowork users.

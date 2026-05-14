@@ -64,7 +64,7 @@ For local testing without pushing to GitHub, point the marketplace at a local cl
 Upload `emba-hwz.plugin` (the zip file at the repo root) in Cowork under *Plugins → Add local plugin*. Cowork unpacks the zip and registers the skills automatically.
 
 ### As local skills (Cowork)
-Alternatively, place the contents of `skills/*` directly under Cowork's user skills directory.
+Alternatively, place the contents of `emba-hwz/skills/*` directly under Cowork's user skills directory.
 
 ## Usage examples
 

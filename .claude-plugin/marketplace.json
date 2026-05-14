@@ -7,7 +7,7 @@
   "plugins": [
     {
       "name": "emba-hwz",
-      "source": ".",
+      "source": "./emba-hwz",
       "description": "Skills based on Sandro's EMBA Advanced Management Program at HWZ Zurich. Each skill operationalizes a specific module's frameworks for practical business application — strategy, leadership, AI governance, sustainability, change, and more."
     }
   ]

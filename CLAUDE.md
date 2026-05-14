@@ -10,17 +10,17 @@ The plugin operationalizes 16 modules of Sandro's HWZ Executive MBA Advanced Man
 
 ## Repository layout
 
-The repo root *is* the plugin source (flat layout, no nested `emba-hwz/` directory):
+The repo root *is* the plugin source (flat layout, no nested `emba-hwz/` directory). It also acts as a **single-plugin Claude Code marketplace** so the plugin can be added directly from GitHub.
 
+- `.claude-plugin/marketplace.json` — marketplace manifest (lists the `emba-hwz` plugin with `source: "."`)
+- `.claude-plugin/plugin.json` — plugin manifest (`name`, `version`, `description`, `keywords`)
 - `skills/<skill-name>/` — one directory per skill, all following the same anatomy:
   - `SKILL.md` — entry point with YAML frontmatter (`name`, `description`) + workflow body
   - `references/*.md` — deep-dive docs Claude loads on demand
   - `templates/*.md` — fill-in canvases for executive use
   - `scripts/*.py` + `scripts/*.example.yaml` — standalone Python renderers (YAML → markdown brief)
 - `README.md` — module → skill mapping and maintenance notes
-- `emba-hwz.plugin` — packaged zip for distribution (contains a nested `emba-hwz/` directory with `.claude-plugin/plugin.json` manifest inside)
-
-Note: the plugin manifest (`.claude-plugin/plugin.json`) currently lives **only inside the zip**, not at the repo root. The zip is the canonical installable artifact — see *Packaging* below.
+- `emba-hwz.plugin` — packaged zip for offline distribution (contains a nested `emba-hwz/` directory with the same manifest inside)
 
 ## How skill triggering works (critical context)
 
@@ -47,20 +47,25 @@ Each script has a sibling `<script>.example.yaml` documenting the schema. When m
 - **Bilingual content.** Skills mix German module names and English operational guidance — keep that pattern; do not translate one into the other.
 - **Skill independence.** Skills should compose at the user's request (e.g. `zukunftsforschung` + `strategie-als-kompass`) but each must stand alone. Don't introduce hard cross-references that break a skill when used in isolation.
 
-## Packaging & installation
+## Installation paths
 
-`emba-hwz.plugin` is the zipped plugin for distribution. Inside the zip, the structure is wrapped in an `emba-hwz/` directory containing `.claude-plugin/plugin.json` plus the `skills/` tree.
+There are three ways to install the plugin, all consuming the same source:
 
-**Installing in Cowork:** the `emba-hwz.plugin` file can be uploaded directly in Cowork as a **local plugin** (Plugins → Add local plugin → select the `.plugin` file). Cowork unpacks the zip and registers all skills.
+1. **Marketplace (GitHub):** in Claude Code, run `/plugin marketplace add sansan88/hwz-emba-claude-plugin`, then `/plugin install emba-hwz@hwz-emba-marketplace`. Driven by `.claude-plugin/marketplace.json` + root `.claude-plugin/plugin.json`.
+2. **Marketplace (local path):** `/plugin marketplace add /path/to/this/repo` for testing without pushing. Same files as (1).
+3. **Cowork local plugin upload:** upload `emba-hwz.plugin` (the zip) in Cowork under *Plugins → Add local plugin*. Cowork unpacks the zip and registers the skills. The zip contains a nested `emba-hwz/` wrapper with its own `.claude-plugin/plugin.json` — Cowork expects this shape.
 
-**Re-packaging after changes:** rebuild the zip so it contains the nested `emba-hwz/` wrapper expected by Cowork. From the repo root:
+## Re-packaging the zip
+
+When you change skills, rebuild `emba-hwz.plugin` so it stays in sync. The zip needs the nested `emba-hwz/` wrapper Cowork expects. From the repo root:
 
 ```
-mkdir -p /tmp/emba-hwz && cp -r skills README.md /tmp/emba-hwz/ \
-  && mkdir -p /tmp/emba-hwz/.claude-plugin \
-  && cp <manifest> /tmp/emba-hwz/.claude-plugin/plugin.json \
-  && (cd /tmp && zip -r emba-hwz.plugin emba-hwz) \
-  && mv /tmp/emba-hwz.plugin .
+rm -rf /tmp/emba-hwz /tmp/emba-hwz.plugin
+mkdir -p /tmp/emba-hwz/.claude-plugin
+cp -r skills README.md /tmp/emba-hwz/
+cp .claude-plugin/plugin.json /tmp/emba-hwz/.claude-plugin/
+(cd /tmp && zip -r emba-hwz.plugin emba-hwz)
+mv /tmp/emba-hwz.plugin .
 ```
 
-The manifest currently only exists inside the previous zip — extract it from there or recreate it (`name: emba-hwz`, `version`, `description`, `author`, `keywords`).
+The two `plugin.json` copies (root + zip) must stay identical — bump `version` in both when releasing.

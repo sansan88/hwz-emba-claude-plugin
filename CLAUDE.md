@@ -14,6 +14,7 @@ The repo root holds the **marketplace manifest** and maintainer docs; the actual
 
 - `.claude-plugin/marketplace.json` — marketplace manifest (lists the `emba-hwz` plugin with `source: "./emba-hwz"`)
 - `emba-hwz/.claude-plugin/plugin.json` — plugin manifest (`name`, `version`, `description`, `keywords`)
+- `emba-hwz/commands/emba-<skill-name>.md` — one slash command per skill, prefixed `emba-` so all 16 surface together when the user types `/emba-`. Each command is a thin wrapper whose body instructs Claude to invoke the matching skill with `$ARGUMENTS`.
 - `emba-hwz/skills/<skill-name>/` — one directory per skill, all following the same anatomy:
   - `SKILL.md` — entry point with YAML frontmatter (`name`, `description`) + workflow body
   - `references/*.md` — deep-dive docs Claude loads on demand

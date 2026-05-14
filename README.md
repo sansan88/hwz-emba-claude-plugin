@@ -66,6 +66,19 @@ Upload `emba-hwz.plugin` (the zip file at the repo root) in Cowork under *Plugin
 ### As local skills (Cowork)
 Alternatively, place the contents of `emba-hwz/skills/*` directly under Cowork's user skills directory.
 
+## Slash commands
+
+Every skill is also reachable through a slash command with the `emba-` prefix, so typing `/emba-` in Claude Code surfaces all 16 modules at once:
+
+- `/emba-zukunftsforschung`, `/emba-politische-rechtliche-landkarte`, `/emba-entscheiden-unter-unsicherheit`
+- `/emba-ai-data-science-new-normal`, `/emba-people-analytics`, `/emba-digital-law-ai-governance`
+- `/emba-strategie-als-kompass`, `/emba-nachhaltigkeit-strategisch`
+- `/emba-regenerative-organisation`, `/emba-psychologie-veraenderung`, `/emba-organisationsevolution`
+- `/emba-mindful-self-leadership`, `/emba-sinnstiftendes-leadership`
+- `/emba-purpose-driven-companies`, `/emba-sales-excellence`, `/emba-ethisches-fuehren`
+
+Each command is a thin wrapper that activates the matching skill and forwards any text you type after it. Use the command form when you want to pin the skill explicitly; use natural-language prompts when you want the skill to trigger from context.
+
 ## Usage examples
 
 Once installed, ask Claude questions like:
